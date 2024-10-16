@@ -1,0 +1,23 @@
+# ninja log v6
+3	1056	7506943421621406	CMakeFiles/zad_2_1.dir/main.cpp.obj	3bee5db45391726c
+12	1071	7506943421711407	CMakeFiles/zad_2_1.dir/Figure.cpp.obj	7c2862e3151cdad3
+21	1074	7506943421801924	CMakeFiles/zad_2_1.dir/Square.cpp.obj	5b1a5e3b1a657aab
+29	1097	7506943421875453	CMakeFiles/zad_2_1.dir/Circle.cpp.obj	6b9d82c693d5e375
+1097	1287	7506943432560393	zad_2_1.exe	ed9058d6d4f4d961
+22	820	7506946563429819	CMakeFiles/zad_2_1.dir/main.cpp.obj	3bee5db45391726c
+29	829	7506946563501583	CMakeFiles/zad_2_1.dir/Figure.cpp.obj	7c2862e3151cdad3
+44	856	7506946563646726	CMakeFiles/zad_2_1.dir/Circle.cpp.obj	6b9d82c693d5e375
+36	873	7506946563572544	CMakeFiles/zad_2_1.dir/Square.cpp.obj	5b1a5e3b1a657aab
+873	992	7506946571936708	zad_2_1.exe	ed9058d6d4f4d961
+25	850	7506947025997440	CMakeFiles/zad_2_1.dir/Figure.cpp.obj	7c2862e3151cdad3
+39	872	7506947026133632	CMakeFiles/zad_2_1.dir/Circle.cpp.obj	6b9d82c693d5e375
+15	659	7506947222954521	CMakeFiles/zad_2_1.dir/main.cpp.obj	3bee5db45391726c
+21	666	7506947223020262	CMakeFiles/zad_2_1.dir/Square.cpp.obj	5b1a5e3b1a657aab
+666	783	7506947229466471	zad_2_1.exe	ed9058d6d4f4d961
+19	703	7506948969948345	CMakeFiles/zad_2_1.dir/main.cpp.obj	3bee5db45391726c
+703	820	7506948976788479	zad_2_1.exe	ed9058d6d4f4d961
+38	864	7506964605968305	CMakeFiles/zad_2_1.dir/Circle.cpp.obj	6b9d82c693d5e375
+20	866	7506964605789601	CMakeFiles/zad_2_1.dir/main.cpp.obj	3bee5db45391726c
+27	880	7506964605860341	CMakeFiles/zad_2_1.dir/Figure.cpp.obj	7c2862e3151cdad3
+33	898	7506964605917530	CMakeFiles/zad_2_1.dir/Square.cpp.obj	5b1a5e3b1a657aab
+898	1033	7506964614572818	zad_2_1.exe	ed9058d6d4f4d961

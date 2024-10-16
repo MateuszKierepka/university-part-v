@@ -1,0 +1,12 @@
+# ninja log v6
+11	843	7507747763455930	CMakeFiles/zad_2_3.dir/Bufor.cpp.obj	dc3717a4c103ec00
+18	847	7507747763529871	CMakeFiles/zad_2_3.dir/MeanBufor.cpp.obj	69f7fea6dc2699c
+3	852	7507747763381661	CMakeFiles/zad_2_3.dir/main.cpp.obj	7a2bfa8981c5b56f
+32	688	7507748094838964	CMakeFiles/zad_2_3.dir/MaxBufor.cpp.obj	d8fe7e53aa497a3f
+688	1123	7507748101405032	zad_2_3.exe	996d9a09ae3f17bf
+27	700	7507748169959092	CMakeFiles/zad_2_3.dir/main.cpp.obj	7a2bfa8981c5b56f
+701	813	7507748176682196	zad_2_3.exe	996d9a09ae3f17bf
+8	874	7507756523804265	CMakeFiles/zad_2_3.dir/main.cpp.obj	7a2bfa8981c5b56f
+15	904	7507756523867856	CMakeFiles/zad_2_3.dir/Bufor.cpp.obj	dc3717a4c103ec00
+21	935	7507756523938183	CMakeFiles/zad_2_3.dir/MaxBufor.cpp.obj	d8fe7e53aa497a3f
+935	1098	7507756533070344	zad_2_3.exe	996d9a09ae3f17bf

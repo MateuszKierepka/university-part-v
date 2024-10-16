@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamówienie</title>
+
+    <link rel="stylesheet" href="formularze.css" type="text/css">
+
+</head>
+<body>
+
+    <h2>Formularz zamówienia</h2>
+
+    <form action="odbierz3.php" method="post">
+        <label for="nazwisko">Nazwisko: </label><input type="text" id="nazwisko" name="nazwisko"><br>
+        <label for="wiek">Wiek: </label><input id="wiek" type="number" name="wiek"><br>
+        <label for="państwo">Państwo: </label>
+        <select id="państwo" size="1" name="państwo">
+            <option value="Polska">Polska</option>
+            <option value="Stany Zjednoczone">Stany Zjednoczone</option>
+            <option value="Wielka Brytania">Wielka Brytania</option>
+        </select><br>
+        <label for="email">Adres e-mail: </label><input id="email" type="email" name="e-mail"><br>
+        <h3>
+            Zamawiam tutorial z języka:
+        </h3>
+        <input class="przycisk" id="C" type="checkbox" name="C" value="C"><label for="C">C</label>
+        <input class="przycisk" id="CPP" type="checkbox" name="CPP" value="CPP"><label for="CPP">C++</label>
+        <input class="przycisk" id="Java" type="checkbox" name="Java" value="Java"><label for="Java">Java</label>
+        <input class="przycisk" id="C#" type="checkbox" name="C#" value="C#"><label for="C#">C#</label>
+        <input class="przycisk" id="HTML" type="checkbox" name="HTML" value="HTML"><label for="HTML">HTML</label>
+        <input class="przycisk" id="CSS" type="checkbox" name="CSS" value="CSS"><label for="CSS">CSS</label>
+        <input class="przycisk" id="XML" type="checkbox" name="XML" value="XML"><label for="XML">XML</label>
+        <input class="przycisk" id="PHP" type="checkbox" name="PHP" value="PHP"><label for="PHP">PHP</label>
+        <input class="przycisk" id="JavaScript" type="checkbox" name="JavaScript" value="JavaScript"><label for="JavaScript">JavaScript</label>
+        <h3>
+            Sposób zapłaty:
+        </h3>
+        <input class="przycisk" id="ec" type="radio" name="platnosc" value="euro" checked><label for="ec">eurocard</label>
+        <input class="przycisk" id="vs" type="radio" name="platnosc" value="visa"><label for="vs">visa</label>
+        <input class="przycisk" id="pb" type="radio" name="platnosc" value="przelew bankowy"><label for="pb">przelew bankowy</label><br>
+
+        <input class="button" type="submit" name="Wyślij" value="Wyślij">
+        <input class="button" type="reset" name="Anuluj" value="Anuluj">
+    </form>
+
+</body>
+</html>
