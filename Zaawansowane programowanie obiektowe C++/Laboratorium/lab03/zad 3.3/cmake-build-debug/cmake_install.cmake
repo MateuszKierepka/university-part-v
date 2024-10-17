@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/mateu/Desktop/Studia/V-SEMESTR/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3
+# Install script for directory: C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/mateu/Desktop/Studia/V-SEMESTR/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
