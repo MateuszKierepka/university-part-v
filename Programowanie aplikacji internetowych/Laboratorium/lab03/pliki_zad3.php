@@ -14,7 +14,7 @@
     Formularz zamówienia
 </h2>
 
-<form action="pliki.php" method="post">
+<form action="pliki_zad3.php" method="post">
 
     <label for="nazwisko">Nazwisko: </label><input type="text" id="nazwisko" name="nazwisko"><br>
     <label for="wiek">Wiek: </label><input id="wiek" type="number" name="wiek"><br>
@@ -51,32 +51,34 @@
 
 </form>
 
-    <?php
-    include_once "funkcje.php";
-    if (isset($_REQUEST["submit"])) {
-        $akcja = $_REQUEST["submit"];
-        switch ($akcja) {
-            case "Wyczyść":
-                wyczysc();
-                break;
-            case "Zapisz":
-                dodaj();
-                break;
-            case "Pokaż":
-                pokaz();
-                break;
-            case "PHP":
-                pokaz_zamowienie("PHP");
-                break;
-            case "CPP":
-                pokaz_zamowienie("CPP");
-                break;
-            case "Java":
-                pokaz_zamowienie("Java");
-                break;
-        }
+<?php
+include_once "funkcje_zad3.php";
+if (isset($_REQUEST["submit"])) {
+    $akcja = $_REQUEST["submit"];
+    switch ($akcja) {
+        case "Wyczyść":
+            wyczysc();
+            break;
+        case "Zapisz":
+            dodaj();
+            break;
+        case "Pokaż":
+            pokaz();
+            break;
+        case "PHP":
+            pokaz_zamowienie("PHP");
+            break;
+        case "CPP":
+            pokaz_zamowienie("CPP");
+            break;
+        case "Java":
+            pokaz_zamowienie("Java");
+            break;
     }
-    ?>
+}
+echo "<h3>Informacje o serwerze:</h3>";
+echo "<pre>" . print_r($_SERVER, true) . "</pre>"; 
+?>
 
 </body>
 </html>

@@ -1,0 +1,52 @@
+table
+{
+    background: #ffffb3;
+    text-align: center;
+    width: 94%;
+    margin: 2%;
+    border: 1px darkblue solid;
+}
+
+caption
+{
+    font-size: 120%;
+    font-weight: bold;
+}
+
+thead, tfoot
+{
+    background: darkblue;
+    color: #ffffff;
+    font-size: 110%;
+    padding: 5px;
+}
+
+td, th
+{
+    border: 1px darkblue solid;
+}
+
+tfoot a
+{
+    color: #ffffff;
+}
+
+.parzysty
+{
+    background-color: #ffffff;
+}
+
+#nazwisko
+{
+    margin-left: 19px;
+}
+
+#wiek
+{
+    margin-left: 49px;
+}
+
+#państwo
+{
+    margin-left: 29px;
+}
