@@ -105,3 +105,35 @@ if let input = readLine(){
 
 // Zadanie 4.5. Utwórz aplikację konsolową – minima i maksima lokalne
 
+print("podaj dlugosc ciagu: ")
+if let input = readLine(), let size = Int(input), size > 0{
+
+    var tab: [String] = []
+
+    for i in 0 ..< size {
+        var value: String?
+
+        repeat {
+            print("Podaj wartość dla tab[\(i)]: ")
+            value = readLine()
+
+            if let currentValue = value {
+                if i > 0 && currentValue == tab[i - 1] {
+                    print("Błąd: wartość nie może być taka sama jak poprzednia. Podaj inną wartość.")
+                    value = nil
+                }
+            }
+        } while value == nil
+
+        tab.append(value!)
+    }
+
+    print("tab = \(tab)")
+
+    for i in 0 ..< (size - 2) {
+        print("\(i + 1). (\(tab[i]), \(tab[i + 1]), \(tab[i + 2])) -> max = , min = ")
+    }
+
+} else{
+    print("dlugosc ciagu musi byc wieksza niz 0...")
+}
