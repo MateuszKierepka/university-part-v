@@ -68,6 +68,30 @@
             echo '<a href="./miniatury/mini-' . $_GET['pic'] . '.jpg">Miniatura</a><br/><br/>';
             echo '<a href="zdjecia.html">Powrót</a>';
         }
+
+        echo '<h2>Galeria zdjęć</h2>';
+
+        $miniatury = scandir('./miniatury/');
+        $count = 0;
+
+        foreach ($miniatury as $mini) {
+            if ($mini != '.' && $mini != '..' && strpos($mini, 'mini-') === 0) {
+                $oryginalneZdjecie = str_replace('mini-', '', $mini);
+                $oryginalneZdjecie = substr($oryginalneZdjecie, 0, -4);
+
+                echo '<a href="' . './zdjecia/' . $oryginalneZdjecie . '.jpg">';
+                echo '<img src="' . './miniatury/' . $mini . '" alt="' . $oryginalneZdjecie . '" style="margin: 10px;" width="150" height="100"/>';
+                echo '</a>';
+
+                $count++;
+            }
+        }
+
+        echo "<p>W galerii jest aktualnie $count zdjęć</p>";
+
         ?>
+
+        <a href="zdjecia.html">Powrót do formularza dodawania zdjęć</a>
+
     </body>
 </html>
