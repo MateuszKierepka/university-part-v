@@ -10,7 +10,7 @@ Citizen::Citizen() {
     cout << "Konstruktor bez. klasy Citizen" << endl;
 }
 
-Citizen::Citizen(string name, string surname, int age, char sex, string postal_code) {
+Citizen::Citizen(const string &name, const string &surname, int age, char sex, const string &postal_code) {
     cout << "Konstruktor klasy Citizen" << endl;
     this->name = name;
     this->surname = surname;
@@ -19,7 +19,7 @@ Citizen::Citizen(string name, string surname, int age, char sex, string postal_c
     this->postal_code = postal_code;
 }
 
-void Citizen::show() {
+void Citizen::show() const {
     cout << "Informacje o mieszkancu:" << endl;
     cout << "Imie: " << name << "\nNazwisko: " << surname << "\nWiek: " << age << "\nPlec: " << sex << "\nKod pocztowy: " << postal_code << endl;
 }
@@ -28,7 +28,7 @@ string Citizen::getName() {
     return name;
 }
 
-void Citizen::setName(string name) {
+void Citizen::setName(const string &name) {
     this->name = name;
 }
 
@@ -36,11 +36,11 @@ string Citizen::getSurname() {
     return surname;
 }
 
-void Citizen::setSurname(string surname) {
+void Citizen::setSurname(const string &surname) {
     this->surname = surname;
 }
 
-int Citizen::getAge() {
+int Citizen::getAge() const {
     return age;
 }
 
@@ -48,7 +48,7 @@ void Citizen::setAge(int age) {
     this->age = age;
 }
 
-char Citizen::getSex() {
+char Citizen::getSex() const {
     return sex;
 }
 
@@ -60,6 +60,6 @@ string Citizen::getPostalCode() {
     return postal_code;
 }
 
-void Citizen::setPostalCode(string postal_code) {
+void Citizen::setPostalCode(const string &postal_code) {
     this->postal_code = postal_code;
 }

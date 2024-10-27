@@ -61,6 +61,12 @@ build CMakeFiles/zad_4_3.dir/Citizen.cpp.obj: CXX_COMPILER__zad_4_3_unscanned_De
   OBJECT_DIR = CMakeFiles\zad_4_3.dir
   OBJECT_FILE_DIR = CMakeFiles\zad_4_3.dir
 
+build CMakeFiles/zad_4_3.dir/City.cpp.obj: CXX_COMPILER__zad_4_3_unscanned_Debug C$:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane$ programowanie$ obiektowe$ C++/Laboratorium/lab04/zad$ 4.3/City.cpp || cmake_object_order_depends_target_zad_4_3
+  DEP_FILE = CMakeFiles\zad_4_3.dir\City.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\zad_4_3.dir
+  OBJECT_FILE_DIR = CMakeFiles\zad_4_3.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target zad_4_3
@@ -69,7 +75,7 @@ build CMakeFiles/zad_4_3.dir/Citizen.cpp.obj: CXX_COMPILER__zad_4_3_unscanned_De
 #############################################
 # Link the executable zad_4_3.exe
 
-build zad_4_3.exe: CXX_EXECUTABLE_LINKER__zad_4_3_Debug CMakeFiles/zad_4_3.dir/main.cpp.obj CMakeFiles/zad_4_3.dir/Citizen.cpp.obj
+build zad_4_3.exe: CXX_EXECUTABLE_LINKER__zad_4_3_Debug CMakeFiles/zad_4_3.dir/main.cpp.obj CMakeFiles/zad_4_3.dir/Citizen.cpp.obj CMakeFiles/zad_4_3.dir/City.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\zad_4_3.dir
