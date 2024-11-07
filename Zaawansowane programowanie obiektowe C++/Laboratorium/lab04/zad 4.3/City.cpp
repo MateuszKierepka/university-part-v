@@ -73,3 +73,11 @@ int City::postal_codes() const {
     }
     return codes.size();
 }
+
+const vector<Citizen>& City::getCitizens() const {
+    return citizens_;
+}
+
+vector<Citizen>& City::getCitizensRef() {
+    return citizens_;
+}

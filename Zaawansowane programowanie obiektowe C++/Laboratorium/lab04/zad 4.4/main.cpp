@@ -22,13 +22,6 @@ int size(int number) {
     return counter;
 }
 
-class SortBySum {
-public:
-    bool operator()(int a, int b) const {
-        return sum(a) < sum(b);
-    }
-};
-
 class SortBySize {
 public:
     bool operator()(int a, int b) const {

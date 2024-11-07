@@ -14,9 +14,11 @@
 class City {
 
 private:
-    vector<Citizen> citizens_;
     string city_name;
     mutable map<string, int> codes;
+
+protected:
+    vector<Citizen> citizens_;
 
 public:
     City(const string &city_name);
@@ -29,7 +31,8 @@ public:
     int city_citizens() const;
     int adults() const;
     int postal_codes() const;
-
+    const vector<Citizen>& getCitizens() const;
+    vector<Citizen>& getCitizensRef();
 };
 
 

@@ -1,53 +1,18 @@
 #include <iostream>
+#include <algorithm>
+#include <list>
 #include <cstdlib>
 #include <ctime>
-#include <vector>
-
-#include <list>
-
-using namespace std;
 
 int main() {
+    srand( time(nullptr));
 
+    int n = rand() % 100 + 1;
 
-    // vektor
-    srand(time(0));
+    std::list<int> list;
 
-    int n = (rand() % 100) + 1;
-    cout << "n = " << n << endl;
-
-    vector<int> vec;
-    vector<int> vec2;
-
-    for (int i = 0; i < n; ++i) {
-        int value = (rand() % 201) - 100;
-        if (value >= 0) {
-            vec.push_back(value);
-        } else {
-            vec2.push_back(value);
-        }
-    }
-
-    vec.insert(vec.end(), vec2.begin(), vec2.end());
-
-    cout << "Zawartosc wektora: " << endl;
-    for (int i : vec) {
-        cout << i << " ";
-    }
-
-    cout << endl;
-
-    // lista
-    srand(time(0));
-
-    int n2 = (rand() % 100) + 1;
-    cout << "n = " << n2 << endl;
-
-    list<int> list;
-
-    for (int i = 0; i < n2; ++i) {
-        int val = (rand() % 201) - 100;
-
+    for (int i = 0; i < n; i++) {
+        int val = rand() % 201 - 100;
         if (val >= 0) {
             list.push_front(val);
         } else {
@@ -55,9 +20,23 @@ int main() {
         }
     }
 
-    for (int value : list) {
-        cout << value << " ";
+    std::cout << "Wypisanie za pomoca iteratora i petli for:" << std::endl;
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        std::cout << *it << " ";
     }
+    std::cout << std::endl;
+
+    std::cout << "Wypisanie za pomoca petli for_each:" << std::endl;
+    std::for_each(list.begin(), list.end(), [](int value) {
+        std::cout << value << " ";
+    });
+    std::cout << std::endl;
+
+    std::cout << "Wypisanie za pomoca petli for z typem auto:" << std::endl;
+    for (auto value : list) {
+        std::cout << value << " ";
+    }
+    std::cout << std::endl;
 
     return 0;
 }
