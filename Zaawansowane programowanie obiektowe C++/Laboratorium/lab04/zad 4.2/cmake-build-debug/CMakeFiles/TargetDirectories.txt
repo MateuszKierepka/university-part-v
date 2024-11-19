@@ -1,3 +1,0 @@
-C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab04/zad 4.2/cmake-build-debug/CMakeFiles/zad_4_2.dir
-C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab04/zad 4.2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab04/zad 4.2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
