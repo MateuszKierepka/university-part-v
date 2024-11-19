@@ -7,7 +7,7 @@ $db = new klasy\Baza('localhost', 'root', '', 'klienci');
 
 $rf = new RegistrationForm();
 if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
-    $user = $rf->checkUser();
+    $user = $rf->checkUser($db);
     if ($user === NULL) {
         echo "<p>Niepoprawne dane rejestracji.</p>";
     } else {
@@ -21,6 +21,5 @@ if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
     }
 }
 
-// Display all users from database
 echo "<h3>Lista użytkowników:</h3>";
 echo User::getAllUsersFromDB($db);

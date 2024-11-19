@@ -15,7 +15,7 @@ class RegistrationForm{
         </form>
         <?php
     }
-    function checkUser(){
+    function checkUser($db){
         $args = [
             'userName' => [
                 'filter' => FILTER_VALIDATE_REGEXP,
@@ -42,11 +42,30 @@ class RegistrationForm{
         }
 
         if ($errors === ""){
-            $this->user = new User($dane['userName'], $dane['password'], $dane['fullName'], $dane['email']);
-        } else{
-            echo "<p>Błędne dane: <br>$errors</p>";
-            $this->user = NULL;
+            $userName = $db->getMySqli()->real_escape_string($dane['userName']);
+            $email = $db->getMySqli()->real_escape_string($dane['email']);
+
+            $checkUserSql = "SELECT COUNT(*) as count FROM users WHERE username = '$userName' OR email = '$email'";
+            $result = $db->getMySqli()->query($checkUserSql);
+
+            if ($result) {
+                $row = $result->fetch_assoc();
+                if ($row['count'] > 0) {
+                    $errors .= "Użytkownik o tej nazwie lub adresie email już istnieje.<br>";
+                    $this->user = NULL;
+                } else {
+                    $this->user = new User($dane['userName'], $dane['password'], $dane['fullName'], $dane['email']);
+                }
+            } else {
+                $errors .= "Błąd sprawdzania unikalności użytkownika.<br>";
+                $this->user = NULL;
+            }
         }
+
+        if ($errors !== ""){
+            echo "<p>Błędne dane: <br>$errors</p>";
+        }
+
         return $this->user;
     }
 }
