@@ -1,3 +1,0 @@
-C:/Users/mateu/Desktop/Studia/V-SEMESTR/Zaawansowane programowanie obiektowe C++/Laboratorium/lab01/zad 1.1/cmake-build-debug/CMakeFiles/zad_1_1.dir
-C:/Users/mateu/Desktop/Studia/V-SEMESTR/Zaawansowane programowanie obiektowe C++/Laboratorium/lab01/zad 1.1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/mateu/Desktop/Studia/V-SEMESTR/Zaawansowane programowanie obiektowe C++/Laboratorium/lab01/zad 1.1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
