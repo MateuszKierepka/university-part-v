@@ -1,3 +1,0 @@
-C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3bis/cmake-build-debug/CMakeFiles/zad_3_3bis.dir
-C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3bis/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab03/zad 3.3bis/cmake-build-debug/CMakeFiles/rebuild_cache.dir
