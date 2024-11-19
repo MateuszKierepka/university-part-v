@@ -11,8 +11,6 @@ pair<int, int> duplikat(const vector<int>& values) {
 
     for (int num : values) {
         if (!uniqueNums.insert(num).second) {
-            //insert zwraca obiekt pair, gdzie pierwszy element to iterator wskazujący na element,
-            ////a drugi element (second) to bool wskazujący, czy dodanie się powiodło (true) lub nie (false).
             duplicatedValue = num;
         }
     }
