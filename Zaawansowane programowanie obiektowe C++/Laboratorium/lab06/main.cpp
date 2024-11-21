@@ -367,65 +367,65 @@ int main() {
 
 
     // Zadanie 6.2. Ksiazka teleadresowa
-    // cout << "Zadanie 6.2. Ksiazka teleadresowa" << endl;
-    // Contacts phone_book;
-    // phone_book.addContact({"Mateusz", "Kierepka", 21, "516942256", "Sloneczne Wzgorze"});
-    // phone_book.addContact({"Ola", "Gryniuk", 19, "731911946", "Topolowa"});
-    // phone_book.addContact({"Mikolaj", "Lukasik", 19, "514949456", "Wygodna"});
-    // phone_book.addContact({"Michal", "Kierepka", 17, "514723494", "Sloneczne Wzgorze"});
-    //
-    // phone_book.showAll();
-    //
-    // phone_book.removeContact("514949456");
-    //
-    // cout << endl;
-    //
-    // phone_book.findByStreet("Sloneczne Wzgorze");
-    //
-    // cout << endl;
-    //
-    // phone_book.findByAgeRange(19,20);
-    //
-    // cout << endl;
-    //
-    // phone_book.findByPhone("516942256");
-    //
-    // cout << endl;
-    //
-    // phone_book.changeStreetName("Sloneczne Wzgorze", "Zielone Wzgorze");
-    // phone_book.showAll();
-    //
-    // cout << "Liczba osob pelnoletnich w ksiazce telefonicznej: " << phone_book.countAdults() << endl;
-    //
-    // cout << endl;
-    //
-    // cout << "Liczba unikalnych nazwisk: " << phone_book.countUniqueSurnames() << endl;
-    //
-    // cout << endl;
+    cout << "Zadanie 6.2. Ksiazka teleadresowa" << endl;
+    Contacts phone_book;
+    phone_book.addContact({"Mateusz", "Kierepka", 21, "516942256", "Sloneczne Wzgorze"});
+    phone_book.addContact({"Ola", "Gryniuk", 19, "731911946", "Topolowa"});
+    phone_book.addContact({"Mikolaj", "Lukasik", 19, "514949456", "Wygodna"});
+    phone_book.addContact({"Michal", "Kierepka", 17, "514723494", "Sloneczne Wzgorze"});
+
+    phone_book.showAll();
+
+    phone_book.removeContact("514949456");
+
+    cout << endl;
+
+    phone_book.findByStreet("Sloneczne Wzgorze");
+
+    cout << endl;
+
+    phone_book.findByAgeRange(19,21);
+
+    cout << endl;
+
+    phone_book.findByPhone("516942256");
+
+    cout << endl;
+
+    phone_book.changeStreetName("Sloneczne Wzgorze", "Zielone Wzgorze");
+    phone_book.showAll();
+
+    cout << "Liczba osob pelnoletnich w ksiazce telefonicznej: " << phone_book.countAdults() << endl;
+
+    cout << endl;
+
+    cout << "Liczba unikalnych nazwisk: " << phone_book.countUniqueSurnames() << endl;
+
+    cout << endl;
 
     // Zadanie 6.3. Statystyka
-    cout << "Zadanie 6.3. Statystyka" << endl;
-    vector<int> vectorInt = {1, -3, -2, 72, 9};
-    vector<double> vectorDouble = {1.2, 4.3, 6, 6.4, 6.7, 8.5};
-
-    cout << "statystyka dla vectorInt" << endl;
-    zad6_3(vectorInt);
-
-    cout << endl;
-
-    cout << "statystyka dla vectoraDouble" << endl;
-    zad6_3(vectorDouble);
-
-    cout << endl;
+    // cout << "Zadanie 6.3. Statystyka" << endl;
+    // vector<int> vectorInt = {1, -3, -2, 72, 9};
+    // vector<double> vectorDouble = {1.2, 4.3, 6, 6.4, 6.7, 8.5};
+    //
+    // cout << "statystyka dla vectorInt" << endl;
+    // zad6_3(vectorInt);
+    //
+    // cout << endl;
+    //
+    // cout << "statystyka dla vectoraDouble" << endl;
+    // zad6_3(vectorDouble);
+    //
+    // cout << endl;
 
     // Zadanie 6.4. Mix
-    boost::fusion::vector<int, double, bool, int, char, double, int, bool, char, float> fusionVec{10, 3.14, true, 7,'c', 2.71, 42, false, 'a', 7.7f};
-    auto typeCounts = countTypes(fusionVec);
-
-    cout << "Liczba wystapien kazdego typu w kontenerze: " << endl;
-    for (const auto& [type, count] : typeCounts) {
-        cout << "typ: " << type << ", liczba wystapien: " << count << endl;
-    }
-
+    // boost::fusion::vector<int, double, bool, int, char, double, int, bool, char, float> fusionVec{10, 3.14, true, 7,'c', 2.71, 42, false, 'a', 7.7f};
+    // auto typeCounts = countTypes(fusionVec);
+    //
+    // cout << "Liczba wystapien kazdego typu w kontenerze: " << endl;
+    // for (const auto& [type, count] : typeCounts) {
+    //     cout << "typ: " << type << ", liczba wystapien: " << count << endl;
+    // }
+    //
     return 0;
 }
