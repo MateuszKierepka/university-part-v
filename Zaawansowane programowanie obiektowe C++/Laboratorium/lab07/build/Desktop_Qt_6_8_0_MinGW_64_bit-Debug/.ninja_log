@@ -1,0 +1,35 @@
+# ninja log v6
+11	1142	7540765464630335	lab07_autogen/timestamp	8f8c9115d3638d79
+11	1142	7540765464630335	lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+11	1142	7540765464630335	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/timestamp	8f8c9115d3638d79
+11	1142	7540765464630335	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+1162	4565	7540765466029281	CMakeFiles/lab07.dir/lab07_autogen/mocs_compilation.cpp.obj	1112dc43f609451e
+1174	4618	7540765466149129	CMakeFiles/lab07.dir/mainwindow.cpp.obj	ee5e46c5ae2a83bb
+1167	5412	7540765466079301	CMakeFiles/lab07.dir/main.cpp.obj	9e437a1db5598e1
+5413	6256	7540765508543301	lab07.exe	ae647ffef5c9f15e
+25	272	7540767367528132	lab07_autogen/timestamp	8f8c9115d3638d79
+25	272	7540767367528132	lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+25	272	7540767367528132	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/timestamp	8f8c9115d3638d79
+25	272	7540767367528132	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+279	3637	7540767370082113	CMakeFiles/lab07.dir/mainwindow.cpp.obj	ee5e46c5ae2a83bb
+274	4540	7540767370022117	CMakeFiles/lab07.dir/main.cpp.obj	9e437a1db5598e1
+4540	4990	7540767412689247	lab07.exe	ae647ffef5c9f15e
+53	287	7540767616275448	lab07_autogen/timestamp	8f8c9115d3638d79
+53	287	7540767616275448	lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+53	287	7540767616275448	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/timestamp	8f8c9115d3638d79
+53	287	7540767616275448	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+294	3701	7540767618679210	CMakeFiles/lab07.dir/mainwindow.cpp.obj	ee5e46c5ae2a83bb
+288	4474	7540767618629210	CMakeFiles/lab07.dir/main.cpp.obj	9e437a1db5598e1
+4474	4935	7540767660492182	lab07.exe	ae647ffef5c9f15e
+50	281	7540767848389285	lab07_autogen/timestamp	8f8c9115d3638d79
+50	281	7540767848389285	lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+50	281	7540767848389285	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/timestamp	8f8c9115d3638d79
+50	281	7540767848389285	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+288	3626	7540767850770898	CMakeFiles/lab07.dir/mainwindow.cpp.obj	ee5e46c5ae2a83bb
+283	4619	7540767850725277	CMakeFiles/lab07.dir/main.cpp.obj	9e437a1db5598e1
+4619	5116	7540767894088325	lab07.exe	ae647ffef5c9f15e
+18	235	7540769770506632	lab07_autogen/timestamp	8f8c9115d3638d79
+18	235	7540769770506632	lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+18	235	7540769770506632	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/timestamp	8f8c9115d3638d79
+18	235	7540769770506632	C:/Users/mateu/Desktop/Studia/university-part-v/Zaawansowane programowanie obiektowe C++/Laboratorium/lab07/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/lab07_autogen/mocs_compilation.cpp	8f8c9115d3638d79
+241	3067	7540769772728497	CMakeFiles/lab07.dir/mainwindow.cpp.obj	ee5e46c5ae2a83bb
