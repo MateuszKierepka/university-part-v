@@ -12,42 +12,54 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 
 # Etap 1:
 df = pd.read_csv("data.csv")
+
+# wyswietlenie 5 pierwszych wierszy
 print(df.head())
 
+# podstawowy opis zbioru danych
 print(df.info())
 
+# rozklad cech alcohol i color_intensity
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
-ax[0].hist(df["alcohol"], edgecolor="black", color="skyblue", bins=20)
-ax[0].set_title("Rozkład cech ALcohol")
+ax[0].hist(df["Alcohol"], bins=20, edgecolor="black", color="skyblue")
+ax[0].set_title("Rozkład cechy Alcohol")
 ax[0].set_xlabel("Alcohol")
 ax[0].set_ylabel("Liczba obserwacji")
-ax[1].hist(df["color_intensity"], edgecolor="black", color="skyblue", bins=20)
+ax[1].hist(df["Color Intensity"], bins=20, edgecolor="black", color="skyblue")
 ax[1].set_title("Rozkład cechy Color Intensity")
 ax[1].set_xlabel("Color Intensity")
 plt.tight_layout()
 plt.show()
 
-plt.boxplot(df["magnesium"])
+# boxplot dla cechy Magnesium
+plt.figure(figsize=(6, 6))
+plt.boxplot(df["Magnesium"])
 plt.title("Boxplot dla cechy Magnesium")
 plt.ylabel("Magnesium")
 plt.show()
 
-print(f"\nWystepuja 4 wartosci odstajace")
-print(f"Mediana cechy magnesium wynosi: {df['magnesium'].median()}")
-print(f"Srednia wartosc cechy magnesium wynosi: {df['magnesium'].mean()}")
+# uzupelnij ponizszy kod
+print(
+    f"\nWystepuja {len(df[np.abs((df['Magnesium'] - df['Magnesium'].mean()) / df['Magnesium'].std()) > 3])} wartosci odstajace"
+)
+print(f"Mediana cechy magnesium wynosi: {df['Magnesium'].median()}")
+print(f"Srednia wartosc cechy magnesium wynosi: {df['Magnesium'].mean()}")
 
 # Etap 2:
 correlation_matrix = df.corr()
-plt.figure(figsize=(10, 10))
+plt.figure(figsize=(16, 16))
 sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", square=True)
 plt.title("Macierz korelacji")
 plt.show()
 
+# uzupelnij kod
 print(
-    "Cecha najmocniej skorelowana dodatnio z\n cecha zalezna: alcalinity_of_ash(0.52)"
-)
-print("Cecha najmocniej skorelowana ujemnie z\n cecha zalezna: flavanoids(-0.85)")
-print("Najmocniej skorelowane dodatnio cechy: flavanoids oraz total_phenols(0.86)")
+    "Cecha najmocniej skorelowana dodatnio z\n cecha zalezna: [...]"
+)  # nie wiem jak tutaj uzupełnić
+print(
+    "Cecha najmocniej skorelowana ujemnie z\n cecha zaleznia: [...]"
+)  # nie wiem jak tutaj uzupełnić
+print("Najmocniej skorelowane dodatnio cechy: [...]")  # nie wiem jak tutaj uzupełnić
 
 # Etap 3:
 y = np.array(df.iloc[:, -1])
@@ -83,12 +95,10 @@ for model, name in zip(models, model_names):
     cm = confusion_matrix(y_test, y_pred)
     print(f"Model: {name}")
     print(f"Accuracy: {(accuracy_score(y_test, y_pred))}")
-    print(f'F1-score: {(f1_score(y_test, y_pred, average="weighted"))}')
+    print(f'F1-Score: {(f1_score(y_test, y_pred, average="weighted"))}')
+    plt.figure(figsize=(10, 10))
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
     plt.title(f"Macierz pomyłek dla {name}")
     plt.xlabel("Predykcje")
     plt.ylabel("Wartości rzeczywiste")
     plt.show()
-
-print(f"Najlepszy model na podstawie dostepnych metryk to Decision Tree (entropy)")
-print(f"Najgorszy model na podstawie dostepnych metryk to Decision Tree")
