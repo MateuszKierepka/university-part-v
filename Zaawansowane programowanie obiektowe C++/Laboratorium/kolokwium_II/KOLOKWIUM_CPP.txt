@@ -1,0 +1,1426 @@
+LABORATORIUM 9. - OBSŁUGA WE/WY. OBSŁUGA BŁĘDÓW I WYJĄTKÓW
+--> Przykład 1. <--
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+int main()
+{
+    int a = 223;
+    float b = 21.365;
+    cout << "dec: " << dec << a << endl;
+
+    cout << "hex bez showbase: " << hex << a << endl;
+    cout << "hex z showbase: " << showbase << a << endl;
+    cout << "oct z showbase: " << oct << a << endl;
+    cout << "oct bez showbase: " << noshowbase << a << endl;
+    cout << "dec z showpos: " << dec << showpos << a << endl;
+    cout << "scientific: " << scientific << b << endl;
+    cout << "setw z right: " << setw(20) << a << endl;
+    cout << "setw z left i setfill: " << setw(20) << left << setfill('*') << a << endl;
+    cout << "setprecision 3: " << resetiosflags(ios::scientific) << setprecision(3) << b << endl;
+
+    string l1, l2, l3 = "Ala Nowak";
+    int num;
+    cout << "Konwersja: " << endl;
+    istringstream isstream("123");
+    isstream >> num; // konwersja z typu string na int
+    cout << num << endl;
+
+    ostringstream osstream;
+    osstream << 123;
+    l1 = osstream.str(); // konwersja z typu int na string
+    cout << l1 << endl;
+
+    ostringstream osstream1;
+    osstream1 << "Laboratorium " << 9 << ", zostalo jeszcze " << 6 << endl; // tworzenie napisu z roznych typow
+    cout << "Formatowanie: " << osstream1.str() << endl;
+
+    string stringEx;
+    int numberIntEx;
+    float numberFloatEx;
+    istringstream isstream1("Ala 10 3.45");
+    isstream1 >> stringEx >> numberIntEx >> numberFloatEx;
+    if (isstream1.fail()){
+        cout << "Parsowanie nie udalo sie" << endl;
+    }else{
+        cout << "Parsowanie udalo sie:" << endl;
+        cout << "Napis: " << stringEx << endl;
+        cout << "Liczba int: " << numberIntEx << endl;
+        cout << "Liczba float: " << numberFloatEx << endl;
+    }
+
+    istringstream ss(l3);
+    getline(ss, l1, ' ');
+    getline(ss, l2, ' ');
+    cout << l1 << " " << l2 << endl;
+
+    return 0;
+}
+
+
+--> Przykład 2. <--
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main(){
+
+    ofstream fileOf; // stworzenie uchwytu do zapisu pliku
+    fileOf.open("plik.txt");
+    if(fileOf.is_open()){
+        cout << "plik otwarty poprawnie" << endl;
+        fileOf << "8 Ala ma kota" << endl;
+        fileOf << "a kot ma Ale" << endl;
+        fileOf << 10 << endl;
+        fileOf << 1.1 << endl;
+        fileOf << 'a' << endl;
+        fileOf.close();
+    } else{
+        cerr << "blad przy otwieraniu pliku" << endl;
+    }
+
+    ofstream fileOf1("zapis.txt", ios::app); // dopisanie danych jesli plik juz istnieje
+
+    ifstream fileIf; // stworzenie uchwytu do odczytu pliku
+    fileIf.open("plik.txt");
+
+    int number;
+    fileIf >> number; // czytanie jednej liczby
+
+    string line;
+    fileIf >> line; // czytanie jednego napisu
+
+    cout << number << " " << line << endl;
+
+    string line1;
+    string line2;
+    getline(fileIf, line1); // czytanie calej linijki
+    getline(fileIf, line2);
+    cout << line1 << endl << line2 << endl;
+
+    char c;
+    c = fileIf.get(); // czytanie jednego bajtu/znaku
+    cout << c << endl;
+
+    while (!fileIf.eof()){ // eof - End Of File
+        getline(fileIf, line1); // czytanie do momentu zakonczenia pliku
+        cout << line1 << endl;
+    }
+
+    // while (getline(fileIf, line1)){
+    //     cout << line1 << endl;
+    // }
+    
+    fileIf.close();
+    
+    return 0;
+}
+
+
+--> Przykład 3. <--
+#include <iostream>
+#include <assert.h>
+#include <cmath>
+
+using namespace std;
+
+int main(){
+    int num = -7;
+    assert(num>=0);
+    cout << sqrt(num) << endl;
+    return 0;
+}
+
+
+--> Przykład 4. <--
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+class Error{
+public:
+    virtual void error()=0;
+    virtual ~Error(){};
+};
+
+class SquareRootError: public Error{
+public:
+    void error() override{
+        cout << "Pierwiastek z liczby ujemnej" << endl;
+    }
+};
+
+double sqrt_function1(int a){
+    if (a < 0)
+        throw SquareRootError();
+    else
+        return sqrt(a);
+}
+
+double sqrt_function2(int a){
+    if (a < 0)
+        throw new SquareRootError();
+    else
+        return sqrt(a);
+}
+
+void function_bad_alloc1(){
+    int* tab = new int [1000000000000];
+}
+
+int main(){
+    try{
+       double result = sqrt_function1(-5);
+        cout << "Wynik to: " << result << endl;
+    } catch (SquareRootError p){
+        p.error();
+    }
+
+    try{
+        double result = sqrt_function2(-5);
+        cout << "Wynik to: " << result << endl;
+    } catch (Error *b){
+        b->error();
+        delete b;
+    }
+
+    try{
+        double result = sqrt_function1(-5);
+        cout << "Wynik to: " << result << endl;
+    } catch (Error &b){
+        b.error();
+    }
+
+    try{
+        function_bad_alloc1();
+    } catch (bad_alloc &ba){
+        cout << "function1 bad alloc: " << ba.what() << endl; // wyswietlenie komunikatu o bledzie
+    }
+
+    try{
+        function_bad_alloc1();
+    } catch (exception &e){
+        cout << "function1 exception: " << e.what() << endl; // wyswietlenie komunikatu o bledzie - znow wyswietli bad alloc bo exception jest nadrzedne
+    }
+    
+    return 0;
+}
+
+
+--> Zadanie 9.1. Kod programu <--
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    ifstream file("kod.txt");
+
+    if (!file.is_open()) {
+        cerr << "Nie można otworzyć pliku kod.txt" << endl;
+        return 1;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        size_t comment_pos = line.find("//");
+        if (comment_pos != string::npos) {
+            string line_without_comment = line.substr(comment_pos + 2);
+            line_without_comment.erase(0, line_without_comment.find_first_not_of(" \t\n\r\f\v"));
+            line_without_comment.erase(line_without_comment.find_last_not_of(" \t\n\r\f\v") + 1);
+            if (!line_without_comment.empty()) {
+                cout << line_without_comment << endl;
+            }
+        } else{
+            line.erase(0, line.find_first_not_of(" \t\n\r\f\v"));
+            if (!line.empty()) {
+                cout << line << endl;
+            }
+        }
+    }
+
+    file.close();
+    return 0;
+}
+
+
+--> Zadanie 9.2. Oczko <--
+#include <iostream>
+#include <stdexcept>
+#include <limits>
+
+using namespace std;
+
+int main() {
+
+    int suma = 0;
+    int liczba = 0;
+    int proby = 0;
+
+    cout << "Podaj dodatnie liczby calkowite, aby osiagnac Oczko (21)" << endl;
+
+    while (suma < 21) {
+        try {
+            cout << "Podaj liczbe: ";
+            cin >> liczba;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Podano nieprawidlowy typ danych. Sprobuj ponownie.");
+            }
+
+            if (liczba <= 0) {
+                throw invalid_argument("Podaj liczbe dodatnia.");
+            }
+
+            proby++;
+
+            if (suma + liczba > 21) {
+                throw overflow_error("Suma przekroczona. Podaj inna liczbe.");
+            }
+
+            suma += liczba;
+
+            if (suma == 21) {
+                cout << "Brawo! Udalo sie osiagnac Oczko (21) po " << proby << " probach.\n";
+                break;
+            }
+        } catch (const invalid_argument &e) {
+            cout << "Blad: " << e.what() << endl;
+            proby++;
+        } catch (const overflow_error &e) {
+            cout << "Blad: " << e.what() << endl;
+        }
+    }
+
+    return 0;
+}
+
+
+--> Zadanie 9.3. Kartoteka studentów <--
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+#include <stdexcept>
+#include <iomanip>
+#include <regex>
+
+using namespace std;
+
+class Student {
+public:
+    string imie, nazwisko, plec, email;
+    double ocena;
+
+    Student(string imie, string nazwisko, string plec, double ocena, string email = "")
+        : imie(imie), nazwisko(nazwisko), plec(plec), ocena(ocena), email(email) {}
+
+    void wyswietl() const {
+        cout << setw(30) << left << imie
+             << setw(30) << left << nazwisko
+             << setw(10) << left << plec
+             << setw(10) << left << ocena;
+        if (!email.empty())
+            cout << setw(30) << left << email;
+        cout << endl;
+    }
+};
+
+void walidujDane(const string& imie, const string& nazwisko, const string& plec, double ocena, const string& email) {
+    regex regexImieNazwisko("^[A-Z][a-zA-Z]*$");
+    regex regexEmail("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+
+    if (!regex_match(imie, regexImieNazwisko) || !regex_match(nazwisko, regexImieNazwisko)) {
+        throw invalid_argument("Imie i nazwisko musza zaczynac sie wielka litera i zawierac tylko litery.");
+    }
+    if (plec != "K" && plec != "M") {
+        throw invalid_argument("Plec musi byc 'K' lub 'M'.");
+    }
+    if (ocena < 2.0 || ocena > 5.0) {
+        throw invalid_argument("Ocena musi byc w przedziale od 2.0 do 5.0.");
+    }
+    if (!email.empty() && !regex_match(email, regexEmail)) {
+        throw invalid_argument("Email musi zawierac znak '@' i byc poprawny.");
+    }
+}
+
+vector<Student> wczytajDane(const string& sciezka) {
+    ifstream plik(sciezka);
+    if (!plik.is_open()) {
+        throw runtime_error("Nie mozna otworzyc pliku: " + sciezka);
+    }
+
+    vector<Student> studenci;
+    string linia;
+    getline(plik, linia); // Pomijamy nagłówek
+    while (getline(plik, linia)) {
+        stringstream ss(linia);
+        string imie, nazwisko, plec, ocenaStr, email;
+        getline(ss, imie, ';');
+        getline(ss, nazwisko, ';');
+        getline(ss, plec, ';');
+        getline(ss, ocenaStr, ';');
+        getline(ss, email, ';');
+
+        double ocena = stod(ocenaStr);
+        studenci.emplace_back(imie, nazwisko, plec, ocena, email);
+    }
+
+    plik.close();
+    return studenci;
+}
+
+void zapiszDane(const string& sciezka, const vector<Student>& studenci, bool dopisz = false) {
+    ofstream plik(sciezka, dopisz ? ios::app : ios::trunc); // Jeśli 'dopisz' jest true, otwieramy w trybie append
+    if (!plik.is_open()) {
+        throw runtime_error("Nie mozna zapisac do pliku: " + sciezka);
+    }
+
+    // Dodaj nagłówek tylko wtedy, gdy plik jest pusty
+    if (dopisz == false) {
+        plik << "Imie;Nazwisko;Plec;Ocena;Email\n";
+    }
+
+    for (const auto& student : studenci) {
+        plik << student.imie << ";" << student.nazwisko << ";" << student.plec << ";" << student.ocena;
+        if (!student.email.empty()) {
+            plik << ";" << student.email;
+        }
+        plik << endl;
+    }
+
+    plik.close();
+}
+
+void posortujOceny(vector<Student>& studenci) {
+    sort(studenci.begin(), studenci.end(), [](const Student& a, const Student& b) {
+        return a.ocena < b.ocena;
+    });
+}
+
+void wyswietlKsiazke(const vector<Student>& studenci) {
+    cout << setw(30) << left << "Imie"
+         << setw(30) << left << "Nazwisko"
+         << setw(10) << left << "Plec"
+         << setw(10) << left << "Ocena"
+         << setw(30) << left << "Email" << endl;
+    cout << string(110, '-') << endl;
+
+    for (const auto& student : studenci) {
+        student.wyswietl();
+    }
+}
+
+int main() {
+    vector<Student> studenci;
+
+    try {
+        string sciezka;
+        cout << "Podaj sciezke do pliku CSV: ";
+        cin >> sciezka;
+
+        studenci = wczytajDane(sciezka);
+
+        int opcja;
+        do {
+            cout << "\nMenu:\n"
+                 << "1. Wyswietl ksiazke adresowa\n"
+                 << "2. Dodaj nowego studenta\n"
+                 << "3. Wyswietl osoby o podanym nazwisku\n"
+                 << "4. Stworz pliki k.csv i m.csv\n"
+                 << "5. Wyswietl X pierwszych studentow\n"
+                 << "6. Posortuj studentow po ocenie\n"
+                 << "7. Wyjdz\n"
+                 << "Wybierz opcje: ";
+            cin >> opcja;
+
+            switch (opcja) {
+                case 1:
+                    wyswietlKsiazke(studenci);
+                    break;
+
+                case 2: {
+                    string imie, nazwisko, plec, email;
+                    double ocena;
+
+                    cout << "Podaj imie: ";
+                    cin >> imie;
+                    cout << "Podaj nazwisko: ";
+                    cin >> nazwisko;
+                    cout << "Podaj plec (K/M): ";
+                    cin >> plec;
+                    cout << "Podaj ocene: ";
+                    cin >> ocena;
+                    cout << "Podaj email (opcjonalnie): ";
+                    cin >> email;
+
+                    try {
+                        walidujDane(imie, nazwisko, plec, ocena, email);
+                        studenci.emplace_back(imie, nazwisko, plec, ocena, email);
+                        cout << "Dodano studenta!\n";
+                    } catch (const invalid_argument& e) {
+                        cout << "Blad: " << e.what() << endl;
+                    }
+                    break;
+                }
+
+                case 3: {
+                    string nazwisko;
+                    cout << "Podaj nazwisko: ";
+                    cin >> nazwisko;
+
+                    for (const auto& student : studenci) {
+                        if (student.nazwisko == nazwisko) {
+                            student.wyswietl();
+                        }
+                    }
+                    break;
+                }
+
+                case 4: {
+                    vector<Student> kobiety, mezczyzni;
+
+                    for (const auto& student : studenci) {
+                        if (student.plec == "K") {
+                            kobiety.push_back(student);
+                        } else if (student.plec == "M") {
+                            mezczyzni.push_back(student);
+                        }
+                    }
+
+                    zapiszDane("k.csv", kobiety, false);
+                    zapiszDane("m.csv", mezczyzni, false);
+
+                    cout << "Pliki k.csv i m.csv zostaly stworzone.\n";
+                    break;
+                }
+
+                case 5: {
+                    int x;
+                    cout << "Podaj liczbe X: ";
+                    cin >> x;
+
+                    if (x > studenci.size()) {
+                        cout << "Blad: Plik zawiera mniej studentow niz " << x << ".\n";
+                    } else {
+                        for (int i = 0; i < x; ++i) {
+                            studenci[i].wyswietl();
+                        }
+                    }
+                    break;
+                }
+
+                case 6:
+                    posortujOceny(studenci);
+                    cout << "Studenci zostali posortowani po ocenie.\n";
+                    break;
+
+                case 7:
+                    zapiszDane(sciezka, studenci, false);  // Zapisujemy dane, nadpisując plik
+                    cout << "Zapisano zmiany do pliku. Wyjscie z programu.\n";
+                    break;
+
+                default:
+                    cout << "Nieprawidlowa opcja.\n";
+            }
+        } while (opcja != 7);
+
+    } catch (const exception& e) {
+        cout << "Blad: " << e.what() << endl;
+    }
+
+    return 0;
+}
+
+
+
+LABORATORIUM 10. - KLASA STRING. WYRAŻENIA REGULARNE
+--> Przykład 1. <--
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+void print(char x) {
+    cout << x << "|";
+}
+
+char toUpper(char ch) {
+    if (ch >= 'a' && ch <= 'z') {
+        return ch-32;
+    }
+    return ch;
+}
+
+int main() {
+
+    string line1 = "Programowanie";
+    string line2 = "Programowanie";
+
+    cout << "Podaj slowo:" << endl;
+    cin >> line1;
+    cin.clear();
+    cin.ignore();
+    cout << "Wczytane slowo: "<< line1 << endl;
+    getline(cin, line2);
+    cout << "Zdanie: " << line2 << endl;
+
+    if (line1 == line2) {
+        cout << "Napisy sa takie same" << endl;
+    } else {
+        cout << "Napisy roznia sie" << endl;
+    }
+
+    line1 = line1 + " " + line2;
+    cout << "Napis: " << line1 << endl;
+    cout << "Druga litera: " << line1[1] << endl;
+
+    cout << "Napis w for: " << endl;
+    for (int i = 0; i < line1.length(); i++) {
+        cout << line1[i];
+    }
+    cout << endl;
+
+    line1.append(" i psa");
+    cout << "Napis po append: " << line1 << endl;
+
+    int ind = line1.find('a');
+    cout << "Pierwsze wystapienie znaku 'a': " << ind << endl;
+    ind = line1.find('a', 7);
+    cout << "Pierwsze wystapienie znaku 'a' po 7 pozycji: " << ind << endl;
+
+    ind = line1.find_last_not_of("kgtoa");
+    cout << "Ostatnie wystapienie znaku nie w kgtoa: " << ind << endl;
+
+    line2 = line1.substr(0, 3); // obciecie napisu
+    cout << "Substr(0,3): " << line2 << endl;
+
+    line1.insert(line1.begin(), '*');
+    line1.push_back('*');
+    cout << "Napis po insert i push_back: " << line1 << endl;
+
+    for (string::iterator it = line1.begin(); it != line1.end(); it++) { // odwolanie sie do wszystkich znakow za pomoca iteratora
+        cout << *it;
+    }
+
+    string::iterator del;
+    del = line1.erase(line1.begin()+0, line1.begin()+5); // usuniecie fragmentu napisu
+    cout << *del << endl;
+    cout << "Napis po erase: " << line1 << endl;
+
+    cout << "transform" << endl;
+    transform(line1.begin(), line1.end(), line1.begin(), toUpper); // uzycie funkcji toUpper dzieki transform
+    cout << line1 << endl;
+
+    cout << "find" << endl;
+    del = find(line1.begin(), line1.end(), 'K');
+    cout << *del << endl;
+
+    cout << "for_each" << endl;
+    for_each(line1.begin(), line1.end(), print); // wyswietlenie kazdej litery oddzielonej znakiem '|'
+
+    return 0;
+}
+
+
+--> Przykład 2. <--
+#include <iostream>
+#include <boost/algorithm/string.hpp>
+#include <boost/tokenizer.hpp>
+
+using namespace boost::algorithm;
+using namespace std;
+
+
+int main() {
+
+    string line = "programowanie";
+    cout << line << endl;
+    to_upper(line);
+    cout << "to_upper: " << line << endl;
+    line = to_lower_copy(line);
+    cout << "to_lower_copy: " << line << endl;
+
+    cout << "erase_first_copy: " << erase_first_copy(line, 'o') << endl; // usuniecie pierwszego wystapienia 'o'
+    cout << erase_all_copy(line, 'o') << endl; // usuniecie wszystkich wystapien 'o'
+    cout << "replace_first_copy: " << replace_first_copy(line, 'p', 'P') << endl; // zamiana pierwszego wystapienia 'p' na 'P'
+    cout << replace_all_copy(line, "o", "-O-") << endl; // zamiana wszystkich wystapien 'o' na '-O-'
+
+    vector<string> vec{"Programowanie", "w", "C++"};
+    cout << "Join: " << join(vec, " ") << endl; // polaczenie napisow w wektorze
+
+    string s = "    Programowanie w C++     ";
+    cout << s << endl;
+    cout << "trim_copy: " << trim_copy(s) << endl; // usuniecie spacji na poczatku i koncu
+
+    s = "---Programowanie w C++---";
+    cout << s << endl;
+    cout << "trim_copy_if: " << trim_copy_if(s, is_any_of("-")) << endl; // usuniecie znaku '-' na poczatku i koncu, gdy sie tam znajduje
+
+    s = "123Programowanie w C++12";
+    cout << s << endl;
+    cout << "trim_copy_if (if digit): " << trim_copy_if(s, is_digit()) << endl; // usuniecie znakow z poczatku i konca jesli sa liczba
+
+    s = "Programowanie w C++";
+    cout << s << endl;
+    cout << "ends_with: " << ends_with(s, "C++") << endl; // sprawdzenie czy koniec napisu jest "C++"
+    cout << "contains: " << contains(s, "gram") << endl; // sprawdzenie czy napis zawiera "gram"
+
+    s = "Programowanie w C++";
+    cout << s << endl;
+    vector<string> vec1;
+    split(vec1, s, is_space());
+    cout << "Zawartosc wektora: " << endl;
+    for (int i = 0; i < vec1.size(); ++i)
+        cout << vec1[i] << endl;
+
+    typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
+    s = "Programowanie w C++";
+    boost::char_separator<char> sep{" "};
+    tokenizer tok{s, sep};
+    cout << s << endl;
+    for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it)
+        cout << *it << endl;
+
+    return 0;
+}
+
+--> Przykład 3. <--
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+int main() {
+
+    string line = "Programowanie w C++";
+    if (regex_match(line, regex("(Prog)(.*)") )) // we wzorcu musi sie znalezc slowo "Prog" oraz dowolny znak powtorzony 0 lub wiecej razy
+        cout << "Znaleziono!" << endl;
+    else
+        cout << "Nie znaleziono!" << endl;
+
+    regex regPattern("(Prog)(.*)");
+    if (regex_match(line, regPattern) )
+        cout << "Znaleziono!" << endl;
+    else
+        cout << "Nie znaleziono!" << endl;
+
+    if (regex_match(line.begin(), line.end(), regPattern))
+        cout << "Znaleziono!" << endl;
+    else
+        cout << "Nie znaleziono!" << endl;
+
+    smatch res; // zastosowanie obiektu smash, ktory zawiera informacje o dopasowaniu
+    regPattern = "(Prog)(.*)";
+    regex_match(line, res, regPattern);
+    cout << "Regex_match:" << endl;
+    cout << "Czy znaleziony? " << res.size() << endl;
+    if (res.size() != 0)
+        cout << "Wzorzec " << res[0] << " zostal znaleziony" << endl;
+
+    cout << endl << "Porownanie match i search" << endl;
+    line = "*******Programowanie w C++*******";
+    regPattern = "(Prog)(.*)";
+    regex_match(line, res, regPattern);
+    cout << "Regex_match:" << endl;
+    cout << "Czy znaleziony? " << res.size() << endl;
+    if (res.size() != 0)
+        cout << "Wzorzec " << res[0] << " zostal znaleziony" << endl;
+
+    regex_search(line, res, regPattern);
+    cout << "Regex_search:" << endl;
+    cout << "Liczba dopasowan: " << res.size() << endl;
+    cout << "res.str(): " << res.str() << endl; // tekst ktory spelnil dopasowanie
+    cout << "res.length(): " << res.length() << endl; // dlugosc dopasowania
+    cout << "res.position(): " << res.position() << endl;
+    cout << "res.prefix(): " << res.prefix().str() << endl;
+    cout << "res.suffix(): " << res.suffix().str() << endl;
+    cout << endl;
+
+    cout << "Podgrupy ver1:" << endl;
+    for (int i = 0; i < res.size(); ++i){
+        cout << "[" << res[i] << "]" << endl;
+        cout << "res.str(): " << res.str(i) << endl;
+        cout << "res.position(): " << res.position(i) << endl;
+        cout << "res.length(): " << res.length(i) << endl;
+        cout << endl;
+    }
+
+    cout << "Podgrupy ver2:" << endl;
+    for (auto pos = res.begin(); pos != res.end(); ++pos){
+        cout << "[" << *pos << "] ";
+        cout << "lenght: " << pos->length() << endl;
+    }
+
+    cout << endl << "Replace: " << endl;
+    line = "*******Programowanie w C++*******";
+    regPattern = "(C\\+{2})";
+    cout << "Przed replace: " << line << endl;
+    line = regex_replace(line, regPattern, "Java");
+    cout << "Po replace: " << line << endl;
+
+    return 0;
+}
+
+--> Zadanie 10.1. Liczba zmiennoprzecinkowa <--
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+int main() {
+
+    string line;
+    cout << "Podaj lancuch znakow:" << endl;
+    cin >> line;
+
+    regex regPattern("^[+-]\\d+\\.\\d+$");
+    if (regex_match(line, regPattern))
+        cout << "Liczba zmiennoprzecinkowa ze znakiem" << endl;
+    else
+        cout << "To nie jest liczba zmiennoprzecinkowa ze znakiem" << endl;
+
+    return 0;
+}
+
+--> Zadanie 10.2. Godzina <--
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+int main() {
+
+    string line;
+    cout << "Podaj godzine:" << endl;
+    cin >> line;
+
+    regex regPattern("^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$");
+    if (regex_match(line, regPattern))
+        cout << "Poprawny format godziny" << endl;
+    else
+        cout << "Niepoprawny format godziny" << endl;
+
+    return 0;
+}
+
+--> Zadanie 10.3. Adres zamieszkania <--
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+int main() {
+
+    regex ulicaPattern("^[A-Z][a-z]+$");
+    regex kodPocztowyPattern("^[0-9]{2}-[0-9]{3}$");
+    regex numerDomuPattern("^\\d+[A-Z]?$");
+    regex numerMieszkaniaPattern("^\d+$");
+
+    return 0;
+}
+
+--> Zadanie 10.4. Kartoteka <--
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+int main() {
+
+    regex imiePattern("^[A-Z][a-z]+$");
+    regex nazwiskoPattern("^[A-Z][a-z]+(-[A-Z][a-z]+)?$");
+    regex wiekPattern("^(0|[1-9][0-9]?)$");
+    regex numerTelefonuPattern("^[1-9][0-9]{8}$");
+    regex emailPattern("^[a-z][a-z0-9_\\-+.!]*@[a-z0-9]+\\.[a-z0-9]+$");
+
+    string imie, nazwisko, email, wiek, numer;
+    cout << "Podaj imie: " << endl;
+    cin >> imie;
+
+    cout << "Podaj nazwisko: " << endl;
+    cin >> nazwisko;
+
+    cout << "Podaj adres email: " << endl;
+    cin >> email;
+
+    cout << "Podaj wiek: " << endl;
+    cin >> wiek;
+
+    cout << "Podaj numer telefonu: " << endl;
+    cin >> numer;
+
+    if (regex_match(imie, imiePattern) && regex_match(nazwisko, nazwiskoPattern) && regex_match(email, emailPattern) && regex_match(wiek, wiekPattern) && regex_match(numer, numerTelefonuPattern) )
+        cout << "dane poprawne" << endl;
+    else
+        cout << "dane niepoprawne" << endl;
+
+    return 0;
+}
+
+
+LABORATORIUM 11. - INTELIGENTNE WSKAŹNIKI
+--> Przykład 1. <--
+#include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+void funcUniqueModify(unique_ptr<int> &uptr){
+    *uptr = 112;
+}
+
+void funcUniqueDeleter(int* p){
+    delete[] p;
+    cout << "funcUniqueDeleter: usunieta tablica" << endl;
+}
+
+unique_ptr<int[]> funcUniqueArray(int n){
+    unique_ptr<int[]> arr(new int[n]);
+    for (int i = 0; i < n; ++i){
+        arr[i] = i+7;
+    }
+    return arr;
+}
+
+int main(){
+    unique_ptr<int> uptr1(new int); // stworzenie wskaznika na liczbe calkowita typu unique_ptr
+    *uptr1 = 12;
+    cout << "Wartosc uptr1: " << *uptr1 << endl;
+    cout << "Adres uptr1: " << uptr1.get() << endl;
+
+    unique_ptr<int> uptr2;
+    cout << "Przed move" << endl;
+    cout << "Adres uptr1: " << uptr1.get() << endl;
+    cout << "Adres uptr2: " << uptr2.get() << endl;
+    uptr2 = move(uptr1);
+    cout << "Po move" << endl;
+    cout << "Adres uptr1: " << uptr1.get() << endl;
+    cout << "Adres uptr2: " << uptr2.get() << endl;
+
+    funcUniqueModify(uptr2);
+    cout << "Wartosc uptr2: " << *uptr2 << endl;
+
+    cout << "Przed reset: Adres uptr2: " << uptr2.get() << endl;
+    uptr2.reset();
+    cout << "Po reset: Adres uptr2: " << uptr2.get() << endl;
+
+    unique_ptr<int[]> tab1(new int[4]);
+    cout << "Elementy tablicy tab1:" << endl;
+    for (int i = 0; i < 4; ++i){
+        tab1[i] = i+7;
+        cout << tab1[i] << endl;
+    }
+
+    unique_ptr<int[]> tab3 = funcUniqueArray(5);
+    cout << "Elementy tablicy tab3:" << endl;
+    for (int i = 0; i < 5; ++i){
+        cout << tab3[i] << endl;
+    }
+    unique_ptr<int[], void(*)(int*)> tab2(new int[10], funcUniqueDeleter);
+
+    vector<unique_ptr<int>> vec;
+    unique_ptr<int> i1(new int);
+    *i1 = 3;
+    vec.push_back(move(i1));
+    cout << "Element w wektorze: " << *vec[0] << endl;
+
+    return 0;
+}
+
+
+--> Przykład 2. <--
+#include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+class Person{
+private:
+    string name;
+    int age;
+public:
+    Person(string name, int age){
+        this->name = name;
+        this->age = age;
+    }
+    void info(){
+        cout << name << " " << age << endl;
+    }
+};
+
+void funcDeleter(Person* p){
+    cout << "usunieta osoba: ";
+    p->info();
+    delete p;
+}
+
+int main(){
+    shared_ptr<Person> sptr1(new Person("Mateusz", 21));
+    shared_ptr<Person> sptr2(new Person("Ola", 19));
+    sptr1->info();
+    cout << "Licznik sptr1: " << sptr1.use_count() << endl;
+    cout << "Licznik sptr2: " << sptr2.use_count() << endl;
+
+    vector<shared_ptr<Person>> firstInOffice;
+    firstInOffice.push_back(sptr1);
+    firstInOffice.push_back(sptr2);
+    firstInOffice.push_back(sptr2);
+    firstInOffice.push_back(sptr1);
+    firstInOffice.push_back(sptr2);
+
+    cout << "Po dodaniu do kontenera" << endl;
+    cout << "Licznik sptr1: " << sptr1.use_count() << endl;
+    cout << "Licznik sptr2: " << sptr2.use_count() << endl;
+
+    for (shared_ptr<Person> ptr : firstInOffice){
+        ptr->info();
+    }
+    cout << endl;
+
+    firstInOffice.resize(3);
+
+    cout << "Po resize" << endl;
+    cout << "Licznik sptr1: " << sptr1.use_count() << endl;
+    cout << "Licznik sptr2: " << sptr2.use_count() << endl;
+
+    shared_ptr<Person> sptr3(new Person("Mikolaj", 19), funcDeleter);
+    sptr3->info();
+
+    return 0;
+}
+
+
+--> Przykład 3. <--
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class Elem{
+public:
+    shared_ptr<Elem> next;
+    weak_ptr<Elem> prev;
+    ~Elem(){
+        cout << "Destruktor Elem" << endl;
+    }
+};
+
+int main(){
+    shared_ptr<Elem> el1(new Elem);
+    shared_ptr<Elem> el2(new Elem);
+    el1->next = el2;
+    el2->prev = el1;
+
+    shared_ptr<Elem> tempEl(el2->prev);
+    cout << "Adres: " << tempEl << endl;
+
+    return 0;
+}
+
+
+--> Zadanie 11.1. Bufor <--
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+class Buffer{
+public:
+    Buffer(){
+        cout << "Konstruktor Buffer" << endl;
+    }
+
+    virtual ~Buffer(){
+        cout << "Destruktor Buffer" << endl;
+    }
+
+    virtual void add(int a) = 0;
+    virtual void write() = 0;
+};
+
+class BufferArr : public Buffer{
+private:
+    unique_ptr<int[]> arr;
+    int size;
+    int index;
+public:
+    BufferArr(){
+        cout << "Konstruktor klasy BufferArr" << endl;
+    }
+    ~BufferArr(){
+        cout << "Destruktor klasy BufferArr" << endl;
+    }
+    BufferArr(int size) : size(size), index(0) {
+        arr = make_unique<int[]>(size);
+        cout << "Konstruktor parametrowy klasy BufferArr" << endl;
+    }
+    void add(int a) override{
+        if (index < size) {
+            arr[index++] = a;
+        } else {
+            cout << "Tablica jest pelna, nie mozna dodac elementu " << a << endl;
+        }
+    }
+    void write() override{
+        for (int i = 0; i < index; ++i) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+class BufferFile : public Buffer{
+private:
+    unique_ptr<ofstream> file;
+    string filename;
+public:
+    BufferFile(){
+        cout << "Konstruktor klasy BufferFile" << endl;
+    }
+    ~BufferFile(){
+        if (file && file->is_open()) {
+            file->close();
+        }
+        cout << "Destruktor klasy BufferFile" << endl;
+    }
+    BufferFile(const string &filename) : filename(filename) {
+        file = make_unique<ofstream>(filename, ios::app);
+        if (!file->is_open()) {
+            throw runtime_error("Nie mozna otworzyc pliku");
+        }
+        cout << "Konstruktor parametrowy klasy BufferFile" << endl;
+    }
+    void add(int a) override{
+        if (file && file->is_open()) {
+            *file << a << endl;
+        }
+    }
+    void write() override{
+        ifstream infile(filename);
+        if (!infile.is_open()) {
+            throw runtime_error("Nie można otworzyć pliku do odczytu");
+        }
+        string line;
+        while (getline(infile, line)) {
+            cout << line << endl;
+        }
+    }
+};
+
+int main(){
+
+    vector<shared_ptr<Buffer>> buffers;
+
+    buffers.push_back(make_shared<BufferArr>(5));
+    buffers.push_back(make_shared<BufferArr>(3));
+
+    buffers.push_back(make_shared<BufferFile>("buffer1.txt"));
+    buffers.push_back(make_shared<BufferFile>("buffer2.txt"));
+
+    buffers[0]->add(10);
+    buffers[0]->add(20);
+    buffers[0]->add(30);
+    buffers[0]->add(40);
+    buffers[0]->add(50);
+    buffers[0]->add(60); // przepelnienie tablicy
+
+    buffers[1]->add(100);
+    buffers[1]->add(200);
+    buffers[1]->add(300);
+    buffers[1]->add(400); // przepelnienei again
+
+    buffers[2]->add(1);
+    buffers[2]->add(2);
+    buffers[2]->add(3);
+
+    buffers[3]->add(10);
+    buffers[3]->add(20);
+    buffers[3]->add(30);
+
+    for (auto &buffer : buffers) {
+        buffer->write();
+    }
+
+    return 0;
+}
+
+
+--> Zadanie 11.2. Sklepy <--
+#include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+class Warehouse{
+private:
+    string nazwa_towaru;
+    int ilosc;
+public:
+    Warehouse(const string& nazwa_towaru, int ilosc) : nazwa_towaru(nazwa_towaru), ilosc(ilosc){}
+
+    void setNazwaTowaru(const string& nazwa_towaru){
+        this->nazwa_towaru = nazwa_towaru;
+    }
+    void setIlosc(int ilosc){
+        this->ilosc = ilosc;
+    }
+
+    string getNazwaTowaru() const {
+        return nazwa_towaru;
+    }
+    int getIlosc() const {
+        return ilosc;
+    }
+
+    void showInfo() const{
+        cout << "Nazwa towaru: " << nazwa_towaru << "\nIlosc: " << ilosc << endl;
+    }
+
+    bool sellItem(int liczba) {
+        if (ilosc >= liczba) {
+            ilosc -= liczba;
+            return true;
+        }
+        return false;
+    }
+};
+
+class Shop{
+private:
+    vector<shared_ptr<Warehouse>> warehouses;
+public:
+    void addWarehouse(const shared_ptr<Warehouse>& warehouse) {
+        warehouses.push_back(warehouse);
+    }
+    bool sellItem(const string& nazwa_towaru, int liczba) {
+        for (auto& warehouse : warehouses) {
+            if (warehouse->getNazwaTowaru() == nazwa_towaru) {
+                if (warehouse->sellItem(liczba)) {
+                    cout << "Sprzedano " << liczba << " sztuk towaru: " << nazwa_towaru << endl;
+                    return true;
+                }
+            }
+        }
+        cout << "Brak wystarczajacej liczby sztuk towaru: " << nazwa_towaru << endl;
+        return false;
+    }
+    void showInfo() const {
+        cout << "Magazyny sklepu:" << endl;
+        for (const auto& warehouse : warehouses) {
+            warehouse->showInfo();
+        }
+    }
+};
+
+int main(){
+    auto warehouse1 = make_shared<Warehouse>("Ksiazki", 30);
+    auto warehouse2 = make_shared<Warehouse>("Komputery", 10);
+    auto warehouse3 = make_shared<Warehouse>("Lozka", 15);
+
+    Shop shop1;
+    Shop shop2;
+
+    shop1.addWarehouse(warehouse1);
+    shop1.addWarehouse(warehouse2);
+
+    shop2.addWarehouse(warehouse2);
+    shop2.addWarehouse(warehouse3);
+
+    shop1.sellItem("Ksiazki", 20);
+    shop1.sellItem("Komputery", 10);
+
+    shop2.sellItem("Komputery", 10);
+    shop2.sellItem("Lozka", 10);
+
+    cout << "\nInformacje o magazynach sklepu 1:\n";
+    shop1.showInfo();
+
+    cout << "\nInformacje o magazynach sklepu 2:\n";
+    shop2.showInfo();
+
+    return 0;
+}
+
+
+--> Zadanie 11.3. Lista dwukierunkowa <--
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class Punkt{
+public:
+    int data;
+    shared_ptr<Punkt> next;
+    shared_ptr<Punkt> prev;
+    Punkt(int data) : data(data), next(nullptr), prev(nullptr){
+        cout << "Konstruktor klasy Punkt" << endl;
+    }
+    ~Punkt(){
+        cout << "Destruktor klasy Punkt" << endl;
+    }
+};
+
+class Lista{
+private:
+    shared_ptr<Punkt> poczatek;
+    shared_ptr<Punkt> koniec;
+public:
+    Lista() : poczatek(nullptr), koniec(nullptr){
+        cout << "Konstruktor klasy Lista" << endl;
+    }
+
+    void dodajNaPoczatek(int data){
+        auto nowyPunkt = make_shared<Punkt>(data);
+        nowyPunkt->next = poczatek;
+
+        if(poczatek)
+            poczatek->prev = nowyPunkt;
+        poczatek = nowyPunkt;
+        if (!koniec)
+            koniec = nowyPunkt;
+    }
+
+    void dodajNaKoniec(int data){
+        auto nowyPunkt = make_shared<Punkt>(data);
+        nowyPunkt->prev = koniec;
+        cout << "Dodaje " << data << " na koniec listy" << endl;
+        if(koniec)
+            koniec->next = nowyPunkt;
+        koniec = nowyPunkt;
+
+        if (!poczatek)
+            poczatek = nowyPunkt;
+    }
+
+    void skasujZPoczatku(){
+        if (poczatek){
+            poczatek = poczatek->next;
+            cout << "Kasuje dana z poczatku listy" << endl;
+            if (poczatek)
+                poczatek->prev = nullptr;
+            else
+                koniec = nullptr;
+        }
+    }
+
+    void skasujZKonca(){
+        if (koniec){
+            koniec = koniec->prev;
+            cout << "Kasuje dana z konca listy" << endl;
+            if (koniec)
+                koniec->next = nullptr;
+            else
+                poczatek = nullptr;
+        }
+    }
+
+    bool czyPusta(){
+        return poczatek == nullptr;
+    }
+
+    void wyswietl() {
+        auto tmp = poczatek;
+        while (tmp) {
+            cout << tmp->data << " ";
+            tmp = tmp->next;
+        }
+        cout << endl;
+    }
+};
+
+
+
+int main(){
+    Lista lista;
+    lista.dodajNaPoczatek(10);
+    lista.dodajNaPoczatek(20);
+    lista.dodajNaKoniec(30);
+    lista.wyswietl();
+
+    lista.skasujZPoczatku();
+    lista.wyswietl();
+
+    lista.skasujZKonca();
+    lista.wyswietl();
+
+    lista.dodajNaKoniec(40);
+    lista.wyswietl();
+
+    cout << "Czy lista jest pusta? " << (lista.czyPusta() ? "Tak" : "Nie") << endl;
+
+    return 0;
+}
+
+LABORATORIUM 12. FUNKCJE LAMBDA
+--> Przykład 1. <--
+#include <iostream>
+#include <tuple>
+
+using namespace std;
+
+int main(){
+    tuple<char, int, float> t1;
+    t1 = make_tuple('a', 8, 21.5);
+
+    cout << "Liczba elementow: " << tuple_size<decltype(t1)>::value << endl;
+    cout << "get<0>(t1): " << get<0>(t1) << endl;
+    cout << "get<1>(t1): " << get<1>(t1) << endl;
+    cout << "get<2>(t1): " << get<2>(t1) << endl;
+
+    // zapisanie do zmiennej elementu znajdującego się w krotce
+    tuple_element<0, decltype(t1)>::type first = get<0>(t1); 
+    tuple_element<1, decltype(t1)>::type second = get<1>(t1);
+
+    cout << "Pierwszy element t1: " << first << endl;
+    cout << "Drugi element t1: " << second << endl;
+
+    cout << "Przed modyfikacja: get<1>(t1): " << get<1>(t1) << endl;
+    get<1>(t1) = 2;
+    cout << "Po modyfikacja: get<1>(t1): " << get<1>(t1) << endl;
+
+    tuple<char, int, float> t2('p', 45, 7.5);
+    cout << "Przed swap t2" << endl;
+    cout << "get<0>(t2): " << get<0>(t2) << endl;
+    cout << "get<1>(t2): " << get<1>(t2) << endl;
+    cout << "get<2>(t2): " << get<2>(t2) << endl;
+    t2.swap(t1);
+    cout << "Po swap t2" << endl;
+    cout << "get<0>(t2): " << get<0>(t2) << endl;
+    cout << "get<1>(t2): " << get<1>(t2) << endl;
+    cout << "get<2>(t2): " << get<2>(t2) << endl;
+
+    tuple<int, char> t3(2, 'a');
+    auto t4 = make_tuple(3, 'b');
+    auto t5 = tuple_cat(t3, t4); // dodawanie krotek do jednej krotki
+    cout << "Zawartosc t5: " << endl;
+    cout << get<0>(t5) << " " << get<1>(t5) << " " << get<2>(t5) << " " << get<3>(t5) << endl;
+
+    int i_val;
+    char ch_val;
+    float f_val;
+    tuple<int, char, float> t6(2, 'R', 3.5);
+    tie(i_val, ch_val, f_val) = t6; // zapisanie do zmiennych wartości z krotek
+    cout << "Pobranie wszystkich zmiennych z tupli: ";
+    cout << i_val << " " << ch_val << " " << f_val << endl;
+    tie(i_val, ignore, f_val) = t6;
+    cout << "Pobranie wybranych zmiennych z tupli: ";
+    cout << i_val << " " << f_val << endl;
+
+    return 0;
+}

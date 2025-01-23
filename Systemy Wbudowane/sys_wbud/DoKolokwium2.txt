@@ -1,0 +1,39 @@
+1 Wykład
+Tematy:
+SPI, I2C, TWI, DBGU, USART
+
+Slajdy:
+Systemy wbudowane.pdf: 206-219
+Wyklad ARMvsAVR 2022.pdf: Od przetwornik ADC
+
+Pytania:
+buforowoanie i programowanie fifo przy wykorzystywaniu portu szeregowego!!!
+
+2 Wykład
+Tematy:
+Kolejka Fifo, Implementacja Kolejki, I2C
+
+Slajdy:
+Systemy wbudowane.pdf: 220-245 (232 ważny slajd)
+IIS5.3 Systemy wbudowane Wykład 3a.pdf: 48 strona bufor
+master-slave 400kHZ, master-master 3,4 MhZ!
+
+3 Wykład
+Tematy: SPI, USB
+Slajdy:
+Systemy wbudowane.pdf: 246-276, potemm pobieżnie 277-
+Pytania:
+uwaga na master-multi-slave, 15 urządzeń zewnętrznych, sterownik 1 poziomu, SPI_MR PCS STATYCZNY DYNAMICZNY - TRYB 0 1 AT91C_SPI_PS
+synchronicznie!
+
+Standard USB: 6 Endpointów, Umożliwia transmisje danych w trybie izochronicznym!! transmisja półdupleksowa, 128 urządzeń a naprawde 125
+
+transfer masowy- obsługa błędów metoda połączeniowa czyli pakiety, izochroniczny metoda bezpołączeniowa, tryb kontrolno-sterujący, tryb przerwaniowy.
+
+Za tydzień RTOS
+Interfejs szeregowy, System przerwań...
+
+4 Wykład
+Tematy: System czasu rzeczywistego, planista, inwersja priorytetów, wywłaszczenia, procesy, pcb, funkcje systemowe
+
+Slajdy: Systemy wbudowane RT Linux wstęp.pdf 1-29, 43-52, 59-75, 83-85!
