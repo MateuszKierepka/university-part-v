@@ -1,0 +1,19 @@
+1. zadanie
+zdjcei schemat modelu
+odwzocorwac taki model w kodzie
+1 model będzie sekwencyjny za pomocą sequential?
+będzie trzeba agency (?) odpowiednia ilość neuronow itp.
+skompilować wytrenować model
+praca na .csv jtore będzie trzeba wczytać do programu
+podzielic na zbior testowy i treningowy
+
+2. zadanie
+obrazek sieci neuronowe z warstwami konwolucyjnymi
+nie trzeba trenować ale skompilować
+
+3 zadanie
+to co dziś - ... rozgaleziona
+cos gdzie się rozgałęzia i się scala
+
+
+można mieć kody wydrukowane

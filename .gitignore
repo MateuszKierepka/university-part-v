@@ -4,3 +4,5 @@ cmake-build-debug/
 .idea/
 boost_1_86_0/
 *.apkg
+*.vpp
+*.docx

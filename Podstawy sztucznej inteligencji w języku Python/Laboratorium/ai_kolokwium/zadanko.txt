@@ -1,0 +1,64 @@
+from keras.api.datasets import mnist, cifar10
+from keras.api.models import Model
+from keras.api.layers import (
+    Input,
+    Dense,
+    Conv2D,
+    MaxPooling2D,
+    AveragePooling2D,
+    GlobalAveragePooling2D,
+)
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+
+(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+x_train.shape
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train.shape
+
+x_train = np.expand_dims(x_train, axis=-1)
+x_test = np.expand_dims(x_test, axis=-1)
+
+y_train = pd.get_dummies(pd.Categorical(y_train)).values
+y_test = pd.get_dummies(pd.Categorical(y_test)).values
+
+# input_tensor = Input(shape=x_train.shape[1:])
+# output_tensor = input_tensor
+# output_tensor.shape
+
+# output_tensor = Conv2D(32, (3, 3), padding="same", activation="selu")(output_tensor)
+# output_tensor.shape
+
+# output_tensor = MaxPooling2D(pool_size=(2, 2))(output_tensor)
+# output_tensor.shape
+
+
+def my_act(tensor):
+    return tf.math.tanh(tensor) * 0.5
+
+
+# output_tensor = Conv2D(32, (3, 3), padding="valid", activation=my_act)(output_tensor)
+# output_tensor.shape
+
+# output_tensor = GlobalAveragePooling2D()(output_tensor)
+# output_tensor.shape
+
+# output_tensor = Dense(10, activation="relu")(output_tensor)
+
+layers = [
+    Conv2D(32, (3, 3), padding="same", activation="selu"),
+    MaxPooling2D(pool_size=(2, 2)),
+    Conv2D(32, (3, 3), padding="valid", activation=my_act),
+    GlobalAveragePooling2D(),
+    Dense(10, activation="relu")
+]
+
+input_tensor = Input(shape=x_train.shape[1:])
+output_tensor = input_tensor
+
+for layer in layers:
+    output_tensor = layer(output_tensor)
+
+model = Model(inputs=input_tensor, outputs=output_tensor)
